@@ -17,15 +17,17 @@
 // one is a lot shorter!
 // Execute `rustlings hint errors2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::num::ParseIntError;
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
-    let qty = item_quantity.parse::<i32>();
-
+    // The ? at the end of an assignment means the operation will call panic! if
+    // the operation fails, or it will behave as expected
+    let qty = item_quantity.parse::<i32>()?;
+// return Ok(T) because the return type is a Result<T,E> enum which has the variants
+// Ok(T) and Err(E)
     Ok(qty * cost_per_item + processing_fee)
 }
 

@@ -1,21 +1,28 @@
 // errors4.rs
 // Execute `rustlings hint errors4` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
 
 #[derive(PartialEq, Debug)]
-enum CreationError {
+enum CreationError { // Created an enum to represent a kind of error
     Negative,
     Zero,
 }
-
+// Define method new(v) for the PositiveNonzeroInteger struct - using the impl keyword
 impl PositiveNonzeroInteger {
+    // Ok() contains the created struct, Err() contains the created enum
     fn new(value: i64) -> Result<PositiveNonzeroInteger, CreationError> {
-        // Hmm...? Why is this only returning an Ok value?
-        Ok(PositiveNonzeroInteger(value as u64))
+        // If the value is positive, return the created struct holding the value
+        // Else if negative or zero, return created enum with relevant variants
+        if value > 0  {
+            Ok(PositiveNonzeroInteger(value as u64))
+        } else if value < 0 {
+            Err(CreationError::Negative)
+        } else {
+            Err(CreationError::Zero)
+        }
     }
 }
 

@@ -16,14 +16,19 @@
 
 // Execute `rustlings hint errors5` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+
+// Result<(), Box<dyn Trait>> means that the main function with return nothing if
+// everything works as it should, or with return an error provided the error type
+// implements the std::error::Error Trait
+// error is initially brough into scope with 'use std::error'
+// then the Error Trait is accessed inside the Box using 'error::Error' 
+fn main() -> Result<(), Box<dyn error::Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);

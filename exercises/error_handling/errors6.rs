@@ -8,7 +8,6 @@
 
 // Execute `rustlings hint errors6` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::num::ParseIntError;
 
@@ -19,18 +18,33 @@ enum ParsePosNonzeroError {
     ParseInt(ParseIntError),
 }
 
+// Implement 2 functions for the ParsePosNonzeroError enum
 impl ParsePosNonzeroError {
+    // When given a CreationError, return the error converted to
+    // ParsePosNonzeroErro::Creation
     fn from_creation(err: CreationError) -> ParsePosNonzeroError {
         ParsePosNonzeroError::Creation(err)
     }
-    // TODO: add another error conversion function here.
-    // fn from_parseint...
+    // When given a ParseIntError, return the error converted to
+    // ParsePosNonzeroError::ParseInt
+    fn from_parseint(err: ParseIntError) -> ParsePosNonzeroError {
+        ParsePosNonzeroError::ParseInt(err)
+    }
 }
 
 fn parse_pos_nonzero(s: &str) -> Result<PositiveNonzeroInteger, ParsePosNonzeroError> {
     // TODO: change this to return an appropriate error instead of panicking
     // when `parse()` returns an error.
-    let x: i64 = s.parse().unwrap();
+    let x: i64 = match s.parse() {
+        Ok(x) => x,
+        // Use the created functions to return the new error type
+        Err(err) => return Err(ParsePosNonzeroError::from_parseint(err))
+    };
+    
+    // return the parsed value inside the PositiveNonzeroInteger struct
+    // .map_err presumably uses the given error as anargument to the given function
+    // which in this case is ParsePosNonzeroError::from_creation(err)
+    // converting the error to the newly created error type
     PositiveNonzeroInteger::new(x).map_err(ParsePosNonzeroError::from_creation)
 }
 

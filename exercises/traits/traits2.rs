@@ -11,13 +11,20 @@
 // you can do this!
 // Execute `rustlings hint traits2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 trait AppendBar {
     fn append_bar(self) -> Self;
 }
 
 // TODO: Implement trait `AppendBar` for a vector of strings.
+impl AppendBar for Vec<String> {
+    // A return type of self must be capitalised as Self
+    // and self must be passed as mut self if we are to modify it
+    fn append_bar(mut self) -> Self {
+        self.push(String::from("Bar")); // return type of push is () 
+        self 
+    }
+}
 
 #[cfg(test)]
 mod tests {

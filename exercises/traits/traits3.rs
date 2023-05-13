@@ -7,10 +7,12 @@
 // Consider what you can add to the Licensed trait.
 // Execute `rustlings hint traits3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
+// We can implement the Traits method directly in the Trait definition
 pub trait Licensed {
-    fn licensing_info(&self) -> String;
+    fn licensing_info(&self) -> String {
+        String::from("Some information")
+    }
 }
 
 struct SomeSoftware {
@@ -21,6 +23,7 @@ struct OtherSoftware {
     version_number: String,
 }
 
+// The function implemented in Licensed Trait now work with these 2 structs
 impl Licensed for SomeSoftware {} // Don't edit this line
 impl Licensed for OtherSoftware {} // Don't edit this line
 

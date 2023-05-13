@@ -3,9 +3,10 @@
 
 // Execute `rustlings hint generics1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
+// The type is a string slice <&str> because "milk" (quoted string, no functions)
+// was the value that was passed
 fn main() {
-    let mut shopping_list: Vec<?> = Vec::new();
+    let mut shopping_list: Vec<&str> = Vec::new();
     shopping_list.push("milk");
 }

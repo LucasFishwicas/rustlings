@@ -32,7 +32,7 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         let v: Vec<&str> = r.split(',').collect();
         let team_1_name = v[0].to_string();
         let team_1_score: u8 = v[2].parse().unwrap();
-        let _team_2_name = v[1].to_string();
+        let team_2_name = v[1].to_string();
         let team_2_score: u8 = v[3].parse().unwrap();
         // TODO: Populate the scores table with details extracted from the
         // current line. Keep in mind that goals scored by team_1
@@ -40,12 +40,21 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
 
-        let team = Team {
-            name: &team_1_name.to_string(),
-            goals_scored: team_1_score,
-            goals_conceded: team_2_score
-        };
-        scores.insert(team.name,team);
+        let team1 = scores.entry(String::from(&team_1_name)).or_insert(Team {
+            name: team_1_name,
+            goals_scored: 0,
+            goals_conceded: 0
+        });
+        (*team1).goals_scored += team_1_score;
+        (*team1).goals_conceded += team_2_score;
+        
+        let team2 = scores.entry(String::from(&team_2_name)).or_insert(Team {
+            name: team_2_name,
+            goals_scored: 0,
+            goals_conceded: 0 
+        });
+        (*team2).goals_scored += team_2_score;
+        (*team2).goals_conceded += team_1_score;
     }
     scores
 }

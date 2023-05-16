@@ -4,7 +4,6 @@
 // we expect to get when we call `is_even(5)`.
 // Execute `rustlings hint tests3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 pub fn is_even(num: i32) -> bool {
     num % 2 == 0
@@ -13,14 +12,17 @@ pub fn is_even(num: i32) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    // Use assert! to ensure the is_even function behaves as expected when given
+    // an even number (using this with 1 input isnt reliable testing)
     #[test]
     fn is_true_when_even() {
-        assert!();
+        assert!(is_even(2));
     }
 
+    // To prove that the function returns false when given an odd number without
+    // assert panicking, we add an ! to invert the result
     #[test]
     fn is_false_when_odd() {
-        assert!();
+        assert!(!is_even(5));
     }
 }

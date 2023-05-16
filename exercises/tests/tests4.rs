@@ -2,8 +2,8 @@
 // Make sure that we're testing for the correct conditions!
 // Execute `rustlings hint tests4` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
+#[derive(PartialEq, Debug)]
 struct Rectangle {
     width: i32,
     height: i32
@@ -27,16 +27,21 @@ mod tests {
     fn correct_width_and_height() {
         // This test should check if the rectangle is the size that we pass into its constructor
         let rect = Rectangle::new(10, 20);
-        assert_eq!(???, 10); // check width
-        assert_eq!(???, 20); // check height
+        assert_eq!(rect.width, 10); // check width
+        assert_eq!(rect.height, 20); // check height
     }
 
+    // Input the should_panic attribute for any tests which we expect to panic
     #[test]
+    #[should_panic]
     fn negative_width() {
         // This test should check if program panics when we try to create rectangle with negative width
         let _rect = Rectangle::new(-10, 10);
     }
-
+    
+    // Doesnt matter whether the should_panic attribute goes before or after
+    // the test attribute
+    #[should_panic]
     #[test]
     fn negative_height() {
         // This test should check if program panics when we try to create rectangle with negative height

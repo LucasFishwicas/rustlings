@@ -7,9 +7,14 @@
 //
 // Execute `rustlings hint lifetimes1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
-fn longest(x: &str, y: &str) -> &str {
+// Similar to generics notation, include <> after the function name and before the
+// parameters; the parameter with a ' before represents a lifetime.
+// Using the 'parameter after the reference (&) symbol for any two arguments will
+// show the rust compiler that the marked variables share the same lifetime/scope.
+// This does nothing more than inform the compiler that the functions return value
+// shares a lifetime/scope with atleast the shortest living of the 2 arguments
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
         x
     } else {

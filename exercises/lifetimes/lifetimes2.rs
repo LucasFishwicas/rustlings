@@ -6,7 +6,6 @@
 //
 // Execute `rustlings hint lifetimes2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
@@ -19,9 +18,10 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 fn main() {
     let string1 = String::from("long string is long");
     let result;
-    {
+  //{ This closed scope for one variable means the arguments do not share the same
+  //  lifetime as suggested by the function signature
         let string2 = String::from("xyz");
         result = longest(string1.as_str(), string2.as_str());
-    }
+  //} Remove the brackets to ensure both variables share the same scope
     println!("The longest string is '{}'", result);
 }

@@ -6,7 +6,6 @@
 //    list_of_results functions.
 // Execute `rustlings hint iterators3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
@@ -23,21 +22,50 @@ pub struct NotDivisibleError {
 // Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
 // Otherwise, return a suitable error.
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
-    todo!();
+    // if divisor is 0, return DivisionError::DivideByZero
+    if b == 0 {
+        Err(DivisionError::DivideByZero)
+    // else if the modulus of a and b is 0, return the divided result 
+    } else if a%b == 0 {
+        Ok(a/b)
+    // else return DivisionError::NotDivisible,
+    // constructing the NotDivisibleError instance inside the tuple enum
+    } else {
+        Err(DivisionError::NotDivisible({ NotDivisibleError {
+            dividend: a,
+            divisor: b,
+        }}))
+    }
 }
 
 // Complete the function and return a value of the correct type so the test passes.
 // Desired output: Ok([1, 11, 1426, 3])
-fn result_with_list() -> () {
+// Change return type from () to Result<Vec<i32>,DivisionError>
+// this is because the returning error for divide is DivisionError and the resulting
+// structure is a vector of the divide results
+fn result_with_list() -> Result<Vec<i32>,DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
+    // use the divide function for each number in the vector and save resulting
+    // vector in division_results
     let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    // then collect() division_results into a new Iterable (vec) explicitly
+    // declaring the result type to mimic that of the fn return type
+    let result: Result<Vec<i32>,DivisionError> = division_results.collect();
+    // return the result
+    result
 }
 
 // Complete the function and return a value of the correct type so the test passes.
 // Desired output: [Ok(1), Ok(11), Ok(1426), Ok(3)]
-fn list_of_results() -> () {
+// Change return type from () to Vec<Result<i32,DivisionError>>
+// this is because this is is changed only because we explicitly request that
+// collect() return a Vec or Results instead of a Result of Vecs like the previous
+// function
+fn list_of_results() -> Vec<Result<i32,DivisionError>> {
     let numbers = vec![27, 297, 38502, 81];
     let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let result: Vec<Result<i32,DivisionError>> = division_results.collect();
+    result
 }
 
 #[cfg(test)]

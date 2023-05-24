@@ -8,7 +8,6 @@
 // need to be modified.
 // Execute `rustlings hint iterators5` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -29,10 +28,14 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
     count
 }
 
+// Convert map to Iterator with .values() then filter for all values that are
+// equal to the Progress value passed into the function, then count how many
+// elements in the filtered Iterator
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
-    // map is a hashmap with String keys and Progress values.
-    // map = { "variables1": Complete, "from_str": None, ... }
-    todo!();
+    map.values()
+        // val = &&Progress; value = Progress; Dereference val and borrow value
+        .filter(|val| *val == &value)
+        .count()
 }
 
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
@@ -47,11 +50,13 @@ fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progres
     count
 }
 
+// Convert collection to Iterator with .iter() then, using the .map() method,
+// use the count_iterator() function to count all occurrences of value in each
+// map for each iteration, then .sum() the results
 fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
-    // collection is a slice of hashmaps.
-    // collection = [{ "variables1": Complete, "from_str": None, ... },
-    //     { "variables2": Complete, ... }, ... ]
-    todo!();
+    collection.iter()
+        .map(|map| count_iterator(map, value))
+        .sum()
 }
 
 #[cfg(test)]

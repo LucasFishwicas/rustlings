@@ -3,7 +3,6 @@
 // can offer. Follow the steps to complete the exercise.
 // Execute `rustlings hint iterators2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 // Step 1.
 // Complete the `capitalize_first` function.
@@ -11,8 +10,14 @@
 pub fn capitalize_first(input: &str) -> String {
     let mut c = input.chars();
     match c.next() {
+        // If the first char = Option<None> then return an empty String
         None => String::new(),
-        Some(first) => ???,
+        // Follow the intuition of extracting first from the Some(first) arm
+        // and making it uppercase with the to_uppercase() method before
+        // concatenating it to the rest of c.
+        // This was doable thanks to the .as_str() that we can apparently apply
+        // to an Iterator of chars (maybe of anything?)
+        Some(first) => first.to_string().to_uppercase() + c.as_str(),
     }
 }
 
@@ -21,7 +26,12 @@ pub fn capitalize_first(input: &str) -> String {
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
 pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    vec![]
+    // Convert words into an Iterator in order to apply the capitalize_first()
+    // function to all items using .map() Iterator method
+    // store modified words in new Vector using .collect() and return it
+    words.iter()
+        .map(|w| capitalize_first(w))
+        .collect()
 }
 
 // Step 3.
@@ -29,8 +39,22 @@ pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 // Return a single string.
 // ["hello", " ", "world"] -> "Hello World"
 pub fn capitalize_words_string(words: &[&str]) -> String {
-    String::new()
+    // Use the capitalize_words_vector() function along with the .join() method
+    // - which can be used on a Vector of Strings (the return type of the fn) -
+    // which creates a String by concatenating all the vecs items
+    //capitalize_words_vector(words).join("")
+    
+
+    // Second solution (from egghead.io)
+    // Utilise the same solution for capitalize_words_vector() but include a
+    // "turbofish". This seems to modify the return type of collect(), making
+    // it return a string rather than a Vector.  Cool
+    words.iter()
+        .map(|w| capitalize_first(w))
+        .collect::<String>()
+
 }
+
 
 #[cfg(test)]
 mod tests {
